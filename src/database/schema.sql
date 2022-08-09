@@ -1,0 +1,18 @@
+CREATE DATABASE edook;
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE IF NOT EXISTS users (
+  id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
+  name VARCHAR NOT NULL,
+  phone VARCHAR NOT NULL,
+  email VARCHAR NOT NULL UNIQUE,
+  password VARCHAR NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS addresses (
+  city VARCHAR NOT NULL,
+  state VARCHAR NOT NULL,
+  user_id UUID NOT NULL,
+  FOREIGN KEY(user_id) REFERENCES users(id)
+);

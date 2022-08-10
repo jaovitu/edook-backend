@@ -1,6 +1,16 @@
 import db from '../../database/index.js';
 
 class UsersRepository {
+  async findByEmail({ email }) {
+    const [ row ] = await db.query(`
+      SELECT *
+      FROM users
+      WHERE users.email = $1
+    `, [email]);
+
+    return row;
+  }
+
   async create({ name, email, phone, hashedPassword }) {
     const [ row ] = await db.query(`
       INSERT INTO users (name, email, phone, password)

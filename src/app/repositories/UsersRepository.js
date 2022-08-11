@@ -1,6 +1,17 @@
 import db from '../../database/index.js';
 
 class UsersRepository {
+  async findById({ id }) {
+    const [ row ] = await db.query(`
+      SELECT users.*, addresses.city, addresses.state
+      FROM users
+      LEFT JOIN addresses ON users.id = addresses.user_id
+      WHERE users.id = $1
+    `, [id]);
+
+    return row;
+  }
+
   async findByEmail({ email }) {
     const [ row ] = await db.query(`
       SELECT *

@@ -2,6 +2,20 @@ import UsersRepository from "../repositories/UsersRepository.js";
 import AddressesRepository from "../repositories/AddressesRepository.js";
 import bcrypt from 'bcrypt';
 class UserController {
+  async show(request, response) {
+    const { id } = request.params;
+
+    const user = await UsersRepository.findById({ id });
+
+    if (!user) {
+      return response.status(404).json({ error: 'User not found.' });
+    }
+
+    delete user.password;
+
+    response.json(user);
+  }
+
   async store(request, response) {
     const { name, email, phone, password, city, state } = request.body;
 

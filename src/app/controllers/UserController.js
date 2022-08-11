@@ -1,8 +1,9 @@
 import UsersRepository from "../repositories/UsersRepository.js";
+import AddressesRepository from "../repositories/AddressesRepository.js";
 import bcrypt from 'bcrypt';
 class UserController {
   async store(request, response) {
-    const { name, email, phone, password } = request.body;
+    const { name, email, phone, password, city, state } = request.body;
 
     if (!name) {
       return response.status(400).json({ error: 'Name is required!' });
@@ -20,6 +21,14 @@ class UserController {
       return response.status(400).json({ error: 'Password is required!' });
     }
 
+    if (!city) {
+      return response.status(400).json({ error: 'City is required!' });
+    }
+
+    if (!state) {
+      return response.status(400).json({ error: 'State is required!' });
+    }
+
     const isEmailInUse = await UsersRepository.findByEmail({ email });
 
     if (isEmailInUse) {
@@ -31,7 +40,15 @@ class UserController {
 
     const user = await UsersRepository.create({ name, email, phone, hashedPassword });
 
-    response.status(201).json(user);
+    delete user.password;
+
+    const { id: user_id } = user;
+
+    const userAddress = await AddressesRepository.create({ city, state, user_id });
+
+    delete userAddress.user_id;
+
+    response.status(201).json({ ...user, ...userAddress });
   }
 }
 

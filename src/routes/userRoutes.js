@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import UserController from '../app/controllers/UserController.js';
 import AuthController from '../app/controllers/AuthController.js';
-import AuthMiddleware from '../middlewares/AuthMiddleware.js';
+import AuthMiddleware from '../app/middlewares/AuthMiddleware.js';
 
 const router = Router();
 

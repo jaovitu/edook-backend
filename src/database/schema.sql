@@ -16,3 +16,14 @@ CREATE TABLE IF NOT EXISTS addresses (
   user_id UUID NOT NULL,
   FOREIGN KEY(user_id) REFERENCES users(id)
 );
+
+CREATE TABLE IF NOT EXISTS books (
+  id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
+  title VARCHAR NOT NULL,
+  author VARCHAR NOT NULL,
+  description TEXT,
+  genres VARCHAR NOT NULL,
+  image_url VARCHAR NOT NULL,
+  user_id UUID NOT NULL,
+  FOREIGN KEY(user_id) REFERENCES users(id)
+);

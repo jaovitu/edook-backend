@@ -14,6 +14,22 @@ class BookController {
     response.json(books);
   }
 
+  async findByGenre(request, response) {
+    const { genre } = request.params;
+
+    if (!genre) {
+      return response.status(400).json({ error: 'Genre is required!' });
+    }
+
+    const books = await BooksRepository.findByGenre({ genre: genre.trim().replace(/^\w/, (c) => c.toUpperCase()) });
+
+    if ( books.length === 0 ) {
+      return response.status(404).json({ message: 'Nothing to show.' });
+    }
+
+    response.json(books);
+  }
+
   async store(request, response) {
     const { title, author, description, genre, userID } = request.body;
     const { location, key } = request.file;

@@ -22,6 +22,8 @@ class BooksRepository {
       WHERE books.genre = $1
       ORDER BY books.title
   `, [genre]);
+
+  return rows;
   }
 
   async create({ title, author, description, genre, imageURL, awsImageKey, userID }) {

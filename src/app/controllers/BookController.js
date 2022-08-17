@@ -2,7 +2,11 @@ import BooksRepository from "../repositories/BooksRepository.js";
 
 class BookController {
   async store(request, response) {
-    response.json({ ok: true });
+    const { teste } = request.body;
+
+    console.log(request.file);
+
+    response.json({ ok: teste });
   }
 }
 

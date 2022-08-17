@@ -1,12 +1,12 @@
 import db from '../../database/index.js';
 
 class BooksRepository {
-  async create({ title, author, description, genre, imageURL, userID }) {
+  async create({ title, author, description, genre, imageURL, awsImageKey, userID }) {
     const [ row ] = await db.query(`
-      INSERT INTO books (title, author, description, genres, image_url, user_id)
-      VALUES ($1, $2, $3, $4, $5, $6)
+      INSERT INTO books (title, author, description, genre, image_url, aws_image_key, user_id)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
       RETURNING *
-    `, [title, author, description, genre,, imageURL, userID]);
+    `, [title, author, description, genre, imageURL, awsImageKey, userID]);
 
     return row;
   }

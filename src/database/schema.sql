@@ -22,8 +22,9 @@ CREATE TABLE IF NOT EXISTS books (
   title VARCHAR NOT NULL,
   author VARCHAR NOT NULL,
   description TEXT,
-  genres VARCHAR NOT NULL,
+  genre VARCHAR NOT NULL,
   image_url VARCHAR NOT NULL,
+  aws_image_key VARCHAR NOT NULL,
   user_id UUID NOT NULL,
   FOREIGN KEY(user_id) REFERENCES users(id)
 );

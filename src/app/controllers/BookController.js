@@ -18,7 +18,17 @@ class BookController {
       return response.status(400).json({ error: 'Missing required parameters!' });
     }
 
-    response.json({ title, author, description, genre, imageURL: location, userID, key });
+    const book = await BooksRepository.create({
+      title,
+      author,
+      description,
+      genre,
+      imageURL: location,
+      awsImageKey: key,
+      userID
+    });
+
+    response.json(book);
   }
 }
 

@@ -1,6 +1,18 @@
 import db from '../../database/index.js';
 
 class BooksRepository {
+  async findAll() {
+    const rows = await db.query(`
+      SELECT books.*, users.name, users.phone, addresses.city, addresses.state
+      FROM books
+      LEFT JOIN users ON books.user_id = users.id
+      LEFT JOIN addresses ON books.user_id = addresses.user_id
+      ORDER BY books.title
+    `);
+
+    return rows;
+  }
+
   async create({ title, author, description, genre, imageURL, awsImageKey, userID }) {
     const [ row ] = await db.query(`
       INSERT INTO books (title, author, description, genre, image_url, aws_image_key, user_id)

@@ -8,6 +8,12 @@ dotenv.config();
 const S3 = new aws.S3();
 
 class BookController {
+  async index(request, response) {
+    const books = await BooksRepository.findAll();
+
+    response.json(books);
+  }
+
   async store(request, response) {
     const { title, author, description, genre, userID } = request.body;
     const { location, key } = request.file;

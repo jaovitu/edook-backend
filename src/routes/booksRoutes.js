@@ -8,6 +8,7 @@ import multerConfig from '../config/multer.js';
 
 const router = Router();
 
+router.get('/books', AuthMiddleware, BookController.index);
 router.post('/books', AuthMiddleware, multer(multerConfig).single('image'), BookController.store);
 
 export default router;

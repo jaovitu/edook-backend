@@ -3,7 +3,7 @@ import db from '../../database/index.js';
 class BooksRepository {
   async findAll() {
     const rows = await db.query(`
-      SELECT books.*, users.name, users.phone, addresses.city, addresses.state
+      SELECT books.*, users.name AS user_name, users.phone AS user_phone, addresses.city AS user_city, addresses.state AS user_state
       FROM books
       LEFT JOIN users ON books.user_id = users.id
       LEFT JOIN addresses ON books.user_id = addresses.user_id

@@ -18,7 +18,7 @@ app.use(userRoutes);
 app.use(booksRoutes);
 
 app.get('/', (request, response) => {
-  response.send('API online - Edook uma comunidade em torno da leitura');
+  response.send('API online - Edook: uma comunidade em torno da leitura');
 });
 
 app.listen(PORT, () => console.log(`Server is running at port ${PORT}...`));

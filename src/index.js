@@ -12,9 +12,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const SERVER_PORT = process.env.SERVER_PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(userRoutes);
 app.use(booksRoutes);
 
-app.listen(SERVER_PORT, () => console.log(`Server is running at port ${SERVER_PORT}...`));
+app.listen(PORT, () => console.log(`Server is running at port ${PORT}...`));
